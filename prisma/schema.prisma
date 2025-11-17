@@ -1,0 +1,91 @@
+// Prisma schema for Harambee Student Portal
+// SQLite for local dev; swap provider/url for prod as needed
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile   Profile?
+  enrollments Enrollment[]
+  invoices  Invoice[]
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  firstName String
+  lastName  String
+  major     String?
+  year      Int?
+  phone     String?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Course {
+  id          String        @id @default(cuid())
+  code        String        @unique
+  title       String
+  credits     Int
+  description String?
+  fee         Int           @default(0)
+
+  enrollments Enrollment[]
+  grades      Grade[]
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+}
+
+model Grade {
+  id         String   @id @default(cuid())
+  userId     String
+  courseId   String
+  score      Float
+  letter     String
+  gradedAt   DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  userId      String
+  term        String
+  amountDue   Int
+  amountPaid  Int       @default(0)
+  dueDate     DateTime
+  status      InvoiceStatus @default(PENDING)
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+}
