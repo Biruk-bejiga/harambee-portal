@@ -31,7 +31,6 @@
     "**/*.mts"
   ],
   "exclude": [
-    "node_modules",
-    "src/lib/prisma.ts"
+    "node_modules"
   ]
 }

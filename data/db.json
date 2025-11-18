@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "email": "student@example.edu",
+      "profile": {
+        "firstName": "Alex",
+        "lastName": "Kim",
+        "major": "Computer Science",
+        "year": 2,
+        "phone": "555-0100"
+      }
+    }
+  ],
+  "courses": [
+    { "id": "course-cs101", "code": "CS101", "title": "Intro to CS", "credits": 3, "fee": 1200 },
+    { "id": "course-math201", "code": "MATH201", "title": "Calculus II", "credits": 4, "fee": 1400 },
+    { "id": "course-eng150", "code": "ENG150", "title": "Academic Writing", "credits": 2, "fee": 800 }
+  ],
+  "enrollments": [
+    { "userId": "user-1", "courseCode": "CS101" },
+    { "userId": "user-1", "courseCode": "MATH201" }
+  ],
+  "grades": [
+    { "userId": "user-1", "courseCode": "CS101", "score": 92.5, "letter": "A" },
+    { "userId": "user-1", "courseCode": "MATH201", "score": 84.0, "letter": "B" }
+  ],
+  "invoices": [
+    { "id": "inv-user-1-Fall2025", "userId": "user-1", "term": "Fall 2025", "amountDue": 2600, "amountPaid": 500, "dueDate": "2025-12-17T00:00:00.000Z", "status": "PENDING" }
+  ]
+}

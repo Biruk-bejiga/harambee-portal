@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,30 +17,31 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  profile   Profile?
+  profile     Profile?
   enrollments Enrollment[]
-  invoices  Invoice[]
+  invoices    Invoice[]
+  grades      Grade[]
 }
 
 model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
+  id        String  @id @default(cuid())
+  userId    String  @unique
   firstName String
   lastName  String
   major     String?
   year      Int?
   phone     String?
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Course {
-  id          String        @id @default(cuid())
-  code        String        @unique
+  id          String  @id @default(cuid())
+  code        String  @unique
   title       String
   credits     Int
   description String?
-  fee         Int           @default(0)
+  fee         Int     @default(0)
 
   enrollments Enrollment[]
   grades      Grade[]
@@ -52,36 +53,36 @@ model Enrollment {
   courseId  String
   createdAt DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
 }
 
 model Grade {
-  id         String   @id @default(cuid())
-  userId     String
-  courseId   String
-  score      Float
-  letter     String
-  gradedAt   DateTime @default(now())
+  id       String   @id @default(cuid())
+  userId   String
+  courseId String
+  score    Float
+  letter   String
+  gradedAt DateTime @default(now())
 
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
 }
 
 model Invoice {
-  id          String   @id @default(cuid())
-  userId      String
-  term        String
-  amountDue   Int
-  amountPaid  Int       @default(0)
-  dueDate     DateTime
-  status      InvoiceStatus @default(PENDING)
+  id         String        @id @default(cuid())
+  userId     String
+  term       String
+  amountDue  Int
+  amountPaid Int           @default(0)
+  dueDate    DateTime
+  status     InvoiceStatus @default(PENDING)
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum InvoiceStatus {
