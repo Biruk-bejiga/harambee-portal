@@ -14,7 +14,7 @@
 	Otherwise, create the project structure manually using available file creation tools.
 	-->
 
-- [ ] Customize the Project
+- [x] Customize the Project (Implemented login page and route protection middleware.)
 	<!--
 	Verify that all previous steps have been completed successfully and you have marked the step as completed.
 	Develop a plan to modify codebase according to user requirements.
@@ -22,7 +22,7 @@
 	Skip this step for "Hello World" projects.
 	-->
 
-- [ ] Install Required Extensions
+- [x] Install Required Extensions (No additional extensions required.)
 	<!-- ONLY install extensions provided mentioned in the get_project_setup_info. Skip this step otherwise and mark as completed. -->
 
 - [ ] Compile the Project
