@@ -1,10 +1,10 @@
 <!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
-- [ ] Verify that the copilot-instructions.md file in the .github directory is created.
+- [x] Verify that the copilot-instructions.md file in the .github directory is created. (File confirmed present.)
 
-- [ ] Clarify Project Requirements
+- [x] Clarify Project Requirements (Existing Next.js/Prisma portal context understood.)
 	<!-- Ask for project type, language, and frameworks if not specified. Skip if already provided. -->
 
-- [ ] Scaffold the Project
+- [x] Scaffold the Project (Existing Next.js app already scaffolded.)
 	<!--
 	Ensure that the previous step has been marked as completed.
 	Call project setup tool with projectType parameter.
